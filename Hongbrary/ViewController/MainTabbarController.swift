@@ -52,6 +52,7 @@ class MainTabbarController: UITabBarController {
         self.tabBar.tintColor = .black
         self.tabBar.layer.cornerRadius = 20
         self.tabBar.layer.masksToBounds = true
+        self.tabBar.layer.maskedCorners = CACornerMask(arrayLiteral: .layerMinXMinYCorner, .layerMaxXMinYCorner)
         self.tabBar.layer.backgroundColor = UIColor.white.cgColor
         self.tabBar.layer.borderColor = UIColor.lightGray.cgColor
         self.tabBar.layer.borderWidth = 0.4
