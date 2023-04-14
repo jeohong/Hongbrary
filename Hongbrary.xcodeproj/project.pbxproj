@@ -9,19 +9,25 @@
 /* Begin PBXBuildFile section */
 		CF98922529E93318008F876A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF98922429E93318008F876A /* AppDelegate.swift */; };
 		CF98922729E93318008F876A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF98922629E93318008F876A /* SceneDelegate.swift */; };
-		CF98922929E93318008F876A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF98922829E93318008F876A /* ViewController.swift */; };
+		CF98922929E93318008F876A /* MainTabbarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF98922829E93318008F876A /* MainTabbarController.swift */; };
 		CF98922E29E93319008F876A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CF98922D29E93319008F876A /* Assets.xcassets */; };
 		CF98923129E93319008F876A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CF98922F29E93319008F876A /* LaunchScreen.storyboard */; };
+		CF98923E29E940EF008F876A /* AllBooksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF98923D29E940EF008F876A /* AllBooksViewController.swift */; };
+		CF98924029E94212008F876A /* ReadBooksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF98923F29E94212008F876A /* ReadBooksViewController.swift */; };
+		CF98924229E94232008F876A /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF98924129E94232008F876A /* SettingViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		CF98922129E93318008F876A /* Hongbrary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hongbrary.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CF98922429E93318008F876A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CF98922629E93318008F876A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		CF98922829E93318008F876A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		CF98922829E93318008F876A /* MainTabbarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabbarController.swift; sourceTree = "<group>"; };
 		CF98922D29E93319008F876A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CF98923029E93319008F876A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CF98923229E93319008F876A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CF98923D29E940EF008F876A /* AllBooksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllBooksViewController.swift; sourceTree = "<group>"; };
+		CF98923F29E94212008F876A /* ReadBooksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadBooksViewController.swift; sourceTree = "<group>"; };
+		CF98924129E94232008F876A /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,9 +73,44 @@
 		CF98923829E93DDF008F876A /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				CF98922829E93318008F876A /* ViewController.swift */,
+				CF98923929E9406F008F876A /* TabItems */,
+				CF98922829E93318008F876A /* MainTabbarController.swift */,
 			);
 			path = ViewController;
+			sourceTree = "<group>";
+		};
+		CF98923929E9406F008F876A /* TabItems */ = {
+			isa = PBXGroup;
+			children = (
+				CF98923A29E94079008F876A /* AllBooks */,
+				CF98923B29E94084008F876A /* ReadBooks */,
+				CF98923C29E9409A008F876A /* Setting */,
+			);
+			path = TabItems;
+			sourceTree = "<group>";
+		};
+		CF98923A29E94079008F876A /* AllBooks */ = {
+			isa = PBXGroup;
+			children = (
+				CF98923D29E940EF008F876A /* AllBooksViewController.swift */,
+			);
+			path = AllBooks;
+			sourceTree = "<group>";
+		};
+		CF98923B29E94084008F876A /* ReadBooks */ = {
+			isa = PBXGroup;
+			children = (
+				CF98923F29E94212008F876A /* ReadBooksViewController.swift */,
+			);
+			path = ReadBooks;
+			sourceTree = "<group>";
+		};
+		CF98923C29E9409A008F876A /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				CF98924129E94232008F876A /* SettingViewController.swift */,
+			);
+			path = Setting;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -142,9 +183,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CF98922929E93318008F876A /* ViewController.swift in Sources */,
+				CF98922929E93318008F876A /* MainTabbarController.swift in Sources */,
+				CF98923E29E940EF008F876A /* AllBooksViewController.swift in Sources */,
 				CF98922529E93318008F876A /* AppDelegate.swift in Sources */,
 				CF98922729E93318008F876A /* SceneDelegate.swift in Sources */,
+				CF98924029E94212008F876A /* ReadBooksViewController.swift in Sources */,
+				CF98924229E94232008F876A /* SettingViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -297,7 +341,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.jeongmin.Hongbrary;
+				PRODUCT_BUNDLE_IDENTIFIER = develop.jeongmin.Hongbrary;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -326,7 +370,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.jeongmin.Hongbrary;
+				PRODUCT_BUNDLE_IDENTIFIER = develop.jeongmin.Hongbrary;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

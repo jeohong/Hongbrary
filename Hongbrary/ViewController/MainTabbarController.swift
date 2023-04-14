@@ -9,9 +9,9 @@ import UIKit
 
 class MainTabbarController: UITabBarController {
     private lazy var allBooksViewController: UINavigationController = {
-        let allBooksViewController = UIViewController()
+        let allBooksViewController = AllBooksViewController()
         
-        let tabBarItem = UITabBarItem(title: "책", image: UIImage(systemName: "books.vertical.fill"), tag: 0)
+        let tabBarItem = UITabBarItem(title: "책", image: UIImage(systemName: "books.vertical.fill")?.withTintColor(.red), tag: 0)
         allBooksViewController.tabBarItem = tabBarItem
         
         let navigationViewController = UINavigationController(rootViewController: allBooksViewController)
@@ -20,7 +20,7 @@ class MainTabbarController: UITabBarController {
     }()
     
     private lazy var readBooksViewController: UINavigationController = {
-        let readBooksViewController = UIViewController()
+        let readBooksViewController = ReadBooksViewController()
         
         let tabBarItem = UITabBarItem(title: "내책", image: UIImage(systemName: "book.fill"), tag: 1)
         readBooksViewController.tabBarItem = tabBarItem
@@ -31,7 +31,7 @@ class MainTabbarController: UITabBarController {
     }()
     
     private lazy var settingViewController: UINavigationController = {
-        let settingViewController = UIViewController()
+        let settingViewController = SettingViewController()
         
         let tabBarItem = UITabBarItem(title: "설정", image: UIImage(systemName: "gear"), tag: 2)
         settingViewController.tabBarItem = tabBarItem
@@ -49,10 +49,10 @@ class MainTabbarController: UITabBarController {
     }
     
     func configureTabBar() {
-        self.tabBar.tintColor = .label
+        self.tabBar.tintColor = .black
         self.tabBar.layer.cornerRadius = 20
         self.tabBar.layer.masksToBounds = true
-        self.tabBar.layer.backgroundColor = UIColor.systemBackground.cgColor
+        self.tabBar.layer.backgroundColor = UIColor.white.cgColor
         self.tabBar.layer.borderColor = UIColor.lightGray.cgColor
         self.tabBar.layer.borderWidth = 0.4
     }
