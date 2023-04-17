@@ -8,6 +8,8 @@
 import UIKit
 
 class SettingViewController: UIViewController {
+    let firebaseManager = FirebaseAuthManager.shared
+    
     private let loginInformationView: LoginInformationView = {
         let logInInformationView = LoginInformationView()
         logInInformationView.translatesAutoresizingMaskIntoConstraints = false
@@ -61,8 +63,8 @@ class SettingViewController: UIViewController {
     
     func configureButtonsAction() {
         self.loginInformationView.logOutButton.addAction(UIAction(handler: { _ in
-            // TODO: Firebase 연동하여 로그아웃 로직 작성 후 로그인 창 뜨도록 연결
-            print("로그아웃 버튼 클릭")
+            self.firebaseManager.signOut()
+            UIApplication.shared.changeRoot(LoginViewController())
         }), for: .touchUpInside)
         
         self.restoreButton.addAction(UIAction(handler: { _ in

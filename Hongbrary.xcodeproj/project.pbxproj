@@ -19,6 +19,7 @@
 		CFC5911729ECE638005025C1 /* UITextField+.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFC5911629ECE638005025C1 /* UITextField+.swift */; };
 		CFC5911A29ECFED7005025C1 /* RegExOfTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFC5911929ECFED7005025C1 /* RegExOfTextField.swift */; };
 		CFC5911C29ED0980005025C1 /* UIApplication+.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFC5911B29ED0980005025C1 /* UIApplication+.swift */; };
+		CFC5911F29ED0D3C005025C1 /* FirebaseAuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFC5911E29ED0D3C005025C1 /* FirebaseAuthManager.swift */; };
 		CFF8074829ECC2E400402CCD /* BooksCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFF8074729ECC2E400402CCD /* BooksCollectionViewCell.swift */; };
 		CFF8074A29ECD2E400402CCD /* LoginInformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFF8074929ECD2E400402CCD /* LoginInformationView.swift */; };
 		CFF8074C29ECDCAD00402CCD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CFF8074B29ECDCAD00402CCD /* GoogleService-Info.plist */; };
@@ -42,6 +43,7 @@
 		CFC5911629ECE638005025C1 /* UITextField+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+.swift"; sourceTree = "<group>"; };
 		CFC5911929ECFED7005025C1 /* RegExOfTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegExOfTextField.swift; sourceTree = "<group>"; };
 		CFC5911B29ED0980005025C1 /* UIApplication+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+.swift"; sourceTree = "<group>"; };
+		CFC5911E29ED0D3C005025C1 /* FirebaseAuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAuthManager.swift; sourceTree = "<group>"; };
 		CFF8074729ECC2E400402CCD /* BooksCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooksCollectionViewCell.swift; sourceTree = "<group>"; };
 		CFF8074929ECD2E400402CCD /* LoginInformationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginInformationView.swift; sourceTree = "<group>"; };
 		CFF8074B29ECDCAD00402CCD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -101,6 +103,7 @@
 			children = (
 				CF98922429E93318008F876A /* AppDelegate.swift */,
 				CF98922629E93318008F876A /* SceneDelegate.swift */,
+				CFC5911D29ED0D2C005025C1 /* Managers */,
 				CFC5911829ECFEBF005025C1 /* Shared */,
 				CFC5911529ECE620005025C1 /* Extension+ */,
 				CF98923829E93DDF008F876A /* ViewController */,
@@ -172,6 +175,14 @@
 				CFC5911929ECFED7005025C1 /* RegExOfTextField.swift */,
 			);
 			path = Shared;
+			sourceTree = "<group>";
+		};
+		CFC5911D29ED0D2C005025C1 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				CFC5911E29ED0D3C005025C1 /* FirebaseAuthManager.swift */,
+			);
+			path = Managers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -299,6 +310,7 @@
 				CFF8074829ECC2E400402CCD /* BooksCollectionViewCell.swift in Sources */,
 				CFC5911C29ED0980005025C1 /* UIApplication+.swift in Sources */,
 				CF98924229E94232008F876A /* SettingViewController.swift in Sources */,
+				CFC5911F29ED0D3C005025C1 /* FirebaseAuthManager.swift in Sources */,
 				CFC5911A29ECFED7005025C1 /* RegExOfTextField.swift in Sources */,
 				CFF8074A29ECD2E400402CCD /* LoginInformationView.swift in Sources */,
 			);

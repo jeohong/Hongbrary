@@ -6,10 +6,12 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     var window: UIWindow?
+    let firebaseManager = FirebaseAuthManager.shared
     
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
@@ -19,8 +21,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
-//        window?.rootViewController = MainTabbarController()
-        window?.rootViewController = LoginViewController()
+        
+        if (firebaseManager.currentUid == nil) {
+            window?.rootViewController = LoginViewController()
+        } else {
+            window?.rootViewController = MainTabbarController()
+        }
         window?.makeKeyAndVisible()
     }
     

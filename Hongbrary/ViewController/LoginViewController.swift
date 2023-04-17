@@ -100,7 +100,7 @@ class LoginViewController: UIViewController {
         return label
     }()
     
-    private let loginButton: UIButton = {
+    private lazy var loginButton: UIButton = {
         let button = UIButton()
         button.setTitle("로그인", for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -112,7 +112,7 @@ class LoginViewController: UIViewController {
         
         button.addAction(UIAction(handler: { _ in
             // TODO: Firebase 연동하여 로그인 로직 구현 및 탭바뷰컨트롤러로 이동
-            print("로그인 버튼 클릭")
+            self.pressedLoginButton()
         }), for: .touchUpInside)
         
         return button
@@ -208,6 +208,9 @@ class LoginViewController: UIViewController {
     }
     
     func configureLoginButton() {
+        self.loginButton.setTitle("로그인", for: .normal)
+        self.signupButton.isHidden = false
+        
         if (self.checkEmailLabel.isHidden && self.checkPasswordLabel.isHidden) && (self.emailTextField.text != "") && (self.passwordTextField.text != "") {
             self.loginButton.isEnabled = true
             self.loginButton.setTitleColor(.black, for: .normal)
@@ -215,6 +218,51 @@ class LoginViewController: UIViewController {
             self.loginButton.isEnabled = false
             self.loginButton.setTitleColor(.red, for: .normal)
         }
+    }
+    
+    func pressedLoginButton() {
+        print("로그인 버튼 클릭")
+        loginButton.isEnabled = false
+        loginButton.setTitle("로그인중...", for: .normal)
+        loginButton.setTitleColor(.gray, for: .normal)
+        signupButton.isHidden = true
+        
+        FirebaseAuthManager.shared.signIn(email: self.emailTextField.text ?? "", password: self.passwordTextField.text ?? "") { error in
+            guard let error = error else {
+                UIApplication.shared.changeRoot( MainTabbarController())
+                return
+            }
+            self.presentLoginErrorAlert(errorCode: error.code)
+        }
+    }
+    
+    func presentLoginErrorAlert(errorCode: Int) {
+        var errorMessage: String = ""
+        
+        switch errorCode {
+        case 17008:
+            errorMessage = "올바른 이메일 형식이 아닙니다."
+        case 17010:
+            errorMessage = "짧은시간 내에 너무 많은 시도를 하셨습니다."
+        case 17009:
+            errorMessage = "비밀번호를 확인해 주세요."
+        case 17011:
+            errorMessage = "해당 이메일을 찾을 수 없습니다.\n회원이 아니라면 회원가입을 진행해 주세요."
+        case 17005:
+            errorMessage = "해당 계정은 사용이 중지되었습니다.\n관리자에게 문의하세요."
+        case 17020:
+            errorMessage = "네트워크 상태를 확인해주세요."
+        default:
+            errorMessage = "다시 시도해 주세요"
+        }
+        
+        let alert = UIAlertController(title: "로그인 실패", message: errorMessage, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "확인", style: .default) { _ in
+            self.configureLoginButton()
+        }
+        
+        alert.addAction(okAction)
+        present(alert, animated: true)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
