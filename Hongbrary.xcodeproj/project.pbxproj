@@ -15,6 +15,8 @@
 		CF98923E29E940EF008F876A /* AllBooksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF98923D29E940EF008F876A /* AllBooksViewController.swift */; };
 		CF98924029E94212008F876A /* ReadBooksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF98923F29E94212008F876A /* ReadBooksViewController.swift */; };
 		CF98924229E94232008F876A /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF98924129E94232008F876A /* SettingViewController.swift */; };
+		CFC5911429ECDFB2005025C1 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFC5911329ECDFB2005025C1 /* LoginViewController.swift */; };
+		CFC5911729ECE638005025C1 /* UITextField+.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFC5911629ECE638005025C1 /* UITextField+.swift */; };
 		CFF8074829ECC2E400402CCD /* BooksCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFF8074729ECC2E400402CCD /* BooksCollectionViewCell.swift */; };
 		CFF8074A29ECD2E400402CCD /* LoginInformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFF8074929ECD2E400402CCD /* LoginInformationView.swift */; };
 		CFF8074C29ECDCAD00402CCD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CFF8074B29ECDCAD00402CCD /* GoogleService-Info.plist */; };
@@ -34,6 +36,8 @@
 		CF98923D29E940EF008F876A /* AllBooksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllBooksViewController.swift; sourceTree = "<group>"; };
 		CF98923F29E94212008F876A /* ReadBooksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadBooksViewController.swift; sourceTree = "<group>"; };
 		CF98924129E94232008F876A /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
+		CFC5911329ECDFB2005025C1 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		CFC5911629ECE638005025C1 /* UITextField+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+.swift"; sourceTree = "<group>"; };
 		CFF8074729ECC2E400402CCD /* BooksCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooksCollectionViewCell.swift; sourceTree = "<group>"; };
 		CFF8074929ECD2E400402CCD /* LoginInformationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginInformationView.swift; sourceTree = "<group>"; };
 		CFF8074B29ECDCAD00402CCD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -66,7 +70,6 @@
 				F6694E284DB1A5F26C7CD5B3 /* Pods-Hongbrary.debug.xcconfig */,
 				A9DE5918698D894A9484B50D /* Pods-Hongbrary.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -94,6 +97,7 @@
 			children = (
 				CF98922429E93318008F876A /* AppDelegate.swift */,
 				CF98922629E93318008F876A /* SceneDelegate.swift */,
+				CFC5911529ECE620005025C1 /* Extension+ */,
 				CF98923829E93DDF008F876A /* ViewController */,
 				CF98922D29E93319008F876A /* Assets.xcassets */,
 				CF98922F29E93319008F876A /* LaunchScreen.storyboard */,
@@ -107,6 +111,7 @@
 			children = (
 				CF98923929E9406F008F876A /* TabItems */,
 				CF98922829E93318008F876A /* MainTabbarController.swift */,
+				CFC5911329ECDFB2005025C1 /* LoginViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -145,6 +150,14 @@
 				CFF8074929ECD2E400402CCD /* LoginInformationView.swift */,
 			);
 			path = Setting;
+			sourceTree = "<group>";
+		};
+		CFC5911529ECE620005025C1 /* Extension+ */ = {
+			isa = PBXGroup;
+			children = (
+				CFC5911629ECE638005025C1 /* UITextField+.swift */,
+			);
+			path = "Extension+";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -262,6 +275,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CFC5911429ECDFB2005025C1 /* LoginViewController.swift in Sources */,
+				CFC5911729ECE638005025C1 /* UITextField+.swift in Sources */,
 				CF98922929E93318008F876A /* MainTabbarController.swift in Sources */,
 				CF98923E29E940EF008F876A /* AllBooksViewController.swift in Sources */,
 				CF98922529E93318008F876A /* AppDelegate.swift in Sources */,
