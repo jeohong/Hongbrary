@@ -16,6 +16,7 @@
 		CF98924029E94212008F876A /* ReadBooksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF98923F29E94212008F876A /* ReadBooksViewController.swift */; };
 		CF98924229E94232008F876A /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF98924129E94232008F876A /* SettingViewController.swift */; };
 		CFF8074829ECC2E400402CCD /* BooksCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFF8074729ECC2E400402CCD /* BooksCollectionViewCell.swift */; };
+		CFF8074A29ECD2E400402CCD /* LoginInformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFF8074929ECD2E400402CCD /* LoginInformationView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		CF98923F29E94212008F876A /* ReadBooksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadBooksViewController.swift; sourceTree = "<group>"; };
 		CF98924129E94232008F876A /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		CFF8074729ECC2E400402CCD /* BooksCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooksCollectionViewCell.swift; sourceTree = "<group>"; };
+		CFF8074929ECD2E400402CCD /* LoginInformationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginInformationView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +114,7 @@
 			isa = PBXGroup;
 			children = (
 				CF98924129E94232008F876A /* SettingViewController.swift */,
+				CFF8074929ECD2E400402CCD /* LoginInformationView.swift */,
 			);
 			path = Setting;
 			sourceTree = "<group>";
@@ -193,6 +196,7 @@
 				CF98924029E94212008F876A /* ReadBooksViewController.swift in Sources */,
 				CFF8074829ECC2E400402CCD /* BooksCollectionViewCell.swift in Sources */,
 				CF98924229E94232008F876A /* SettingViewController.swift in Sources */,
+				CFF8074A29ECD2E400402CCD /* LoginInformationView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
