@@ -8,6 +8,8 @@
 import UIKit
 
 class AllBooksViewController: UIViewController {
+    let pdfList = PdfList()
+    
     private lazy var allBooksCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
@@ -51,7 +53,7 @@ extension AllBooksViewController: UICollectionViewDelegate {
 
 extension AllBooksViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 6
+        return pdfList.itemList.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -59,7 +61,8 @@ extension AllBooksViewController: UICollectionViewDataSource {
             return UICollectionViewCell()
         }
         
-        cell.backgroundColor = .green
+        cell.pdfImage.image = UIImage(named: pdfList.itemList[indexPath.row])
+        cell.titleLabel.text = pdfList.titleMap(pdfList.itemList[indexPath.row])
         
         return cell
     }

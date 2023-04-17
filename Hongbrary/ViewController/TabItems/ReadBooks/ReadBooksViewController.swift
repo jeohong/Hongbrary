@@ -8,6 +8,8 @@
 import UIKit
 
 class ReadBooksViewController: UIViewController {
+    let itemList = PdfList().itemList
+    
     private lazy var myBooksCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
@@ -51,7 +53,7 @@ extension ReadBooksViewController: UICollectionViewDelegate {
 
 extension ReadBooksViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 6
+        return itemList.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
