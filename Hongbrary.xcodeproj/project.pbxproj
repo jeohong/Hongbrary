@@ -17,6 +17,7 @@
 		CF98924229E94232008F876A /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF98924129E94232008F876A /* SettingViewController.swift */; };
 		CFF8074829ECC2E400402CCD /* BooksCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFF8074729ECC2E400402CCD /* BooksCollectionViewCell.swift */; };
 		CFF8074A29ECD2E400402CCD /* LoginInformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFF8074929ECD2E400402CCD /* LoginInformationView.swift */; };
+		CFF8074C29ECDCAD00402CCD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CFF8074B29ECDCAD00402CCD /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		CF98924129E94232008F876A /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		CFF8074729ECC2E400402CCD /* BooksCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooksCollectionViewCell.swift; sourceTree = "<group>"; };
 		CFF8074929ECD2E400402CCD /* LoginInformationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginInformationView.swift; sourceTree = "<group>"; };
+		CFF8074B29ECDCAD00402CCD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -48,6 +50,7 @@
 		CF98921829E93318008F876A = {
 			isa = PBXGroup;
 			children = (
+				CFF8074B29ECDCAD00402CCD /* GoogleService-Info.plist */,
 				CF98922329E93318008F876A /* Hongbrary */,
 				CF98922229E93318008F876A /* Products */,
 			);
@@ -179,6 +182,7 @@
 			files = (
 				CF98923129E93319008F876A /* LaunchScreen.storyboard in Resources */,
 				CF98922E29E93319008F876A /* Assets.xcassets in Resources */,
+				CFF8074C29ECDCAD00402CCD /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
