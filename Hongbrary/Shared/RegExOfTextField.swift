@@ -19,4 +19,9 @@ class RegExOfTextField {
         let check = "^(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9])(?=.*[0-9]).{6,20}$"
         return NSPredicate(format: "SELF MATCHES %@", check).evaluate(with: password)
     }
+    
+    /// Password 가 일치하는지에 대한 유효성 검사
+    func checkRewritePassword(existingPassword: String, rewritePassword: String) -> Bool {
+        return existingPassword == rewritePassword
+    }
 }

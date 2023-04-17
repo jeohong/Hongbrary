@@ -18,7 +18,6 @@ class LoginInformationView: UIView {
     }()
     
     let eMailLabel: UILabel = {
-        // TODO: Firebase 연동하여 현재 로그인한 사용자의 이메일 정보 표시
         let eMailLabel = UILabel()
         eMailLabel.font = UIFont.systemFont(ofSize: 13)
         eMailLabel.translatesAutoresizingMaskIntoConstraints = false

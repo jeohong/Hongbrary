@@ -31,4 +31,10 @@ class FirebaseAuthManager {
             print("Error signing out: %@", signOutError)
         }
     }
+    
+    func signup(email: String, password: String, completion: @escaping (NSError?) -> ()) {
+        Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
+            completion(error as NSError?)
+        }
+    }
 }

@@ -20,6 +20,7 @@
 		CFC5911A29ECFED7005025C1 /* RegExOfTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFC5911929ECFED7005025C1 /* RegExOfTextField.swift */; };
 		CFC5911C29ED0980005025C1 /* UIApplication+.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFC5911B29ED0980005025C1 /* UIApplication+.swift */; };
 		CFC5911F29ED0D3C005025C1 /* FirebaseAuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFC5911E29ED0D3C005025C1 /* FirebaseAuthManager.swift */; };
+		CFC5912129ED25F6005025C1 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFC5912029ED25F6005025C1 /* SignUpViewController.swift */; };
 		CFF8074829ECC2E400402CCD /* BooksCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFF8074729ECC2E400402CCD /* BooksCollectionViewCell.swift */; };
 		CFF8074A29ECD2E400402CCD /* LoginInformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFF8074929ECD2E400402CCD /* LoginInformationView.swift */; };
 		CFF8074C29ECDCAD00402CCD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CFF8074B29ECDCAD00402CCD /* GoogleService-Info.plist */; };
@@ -44,6 +45,7 @@
 		CFC5911929ECFED7005025C1 /* RegExOfTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegExOfTextField.swift; sourceTree = "<group>"; };
 		CFC5911B29ED0980005025C1 /* UIApplication+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+.swift"; sourceTree = "<group>"; };
 		CFC5911E29ED0D3C005025C1 /* FirebaseAuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAuthManager.swift; sourceTree = "<group>"; };
+		CFC5912029ED25F6005025C1 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		CFF8074729ECC2E400402CCD /* BooksCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooksCollectionViewCell.swift; sourceTree = "<group>"; };
 		CFF8074929ECD2E400402CCD /* LoginInformationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginInformationView.swift; sourceTree = "<group>"; };
 		CFF8074B29ECDCAD00402CCD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -120,6 +122,7 @@
 				CF98923929E9406F008F876A /* TabItems */,
 				CF98922829E93318008F876A /* MainTabbarController.swift */,
 				CFC5911329ECDFB2005025C1 /* LoginViewController.swift */,
+				CFC5912029ED25F6005025C1 /* SignUpViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -308,6 +311,7 @@
 				CF98922729E93318008F876A /* SceneDelegate.swift in Sources */,
 				CF98924029E94212008F876A /* ReadBooksViewController.swift in Sources */,
 				CFF8074829ECC2E400402CCD /* BooksCollectionViewCell.swift in Sources */,
+				CFC5912129ED25F6005025C1 /* SignUpViewController.swift in Sources */,
 				CFC5911C29ED0980005025C1 /* UIApplication+.swift in Sources */,
 				CF98924229E94232008F876A /* SettingViewController.swift in Sources */,
 				CFC5911F29ED0D3C005025C1 /* FirebaseAuthManager.swift in Sources */,
