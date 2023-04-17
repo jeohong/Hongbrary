@@ -75,8 +75,7 @@ class SettingViewController: UIViewController {
     }
     
     func setupUserData() {
-        guard let email = firebaseManager.userEmail else { print("hellosssss");return }
-        print("hello")
+        guard let email = firebaseManager.userEmail else { return }
         self.loginInformationView.eMailLabel.text = email
     }
 }
