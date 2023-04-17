@@ -8,13 +8,21 @@
 import UIKit
 
 class AllBooksViewController: UIViewController {
-    private let sampleLabel: UILabel = {
-       let label = UILabel()
-        label.text = "책"
-        label.textColor = .red
-        label.translatesAutoresizingMaskIntoConstraints = false
+    private lazy var allBooksCollectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .vertical
+        layout.minimumLineSpacing = 20
         
-        return label
+        let intervar: CGFloat = 10
+        layout.sectionInset = UIEdgeInsets(top: 0, left: intervar, bottom: 0, right: intervar)
+        
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        collectionView.register(BooksCollectionViewCell.self, forCellWithReuseIdentifier: BooksCollectionViewCell.cellId)
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+
+        return collectionView
     }()
 
     override func viewDidLoad() {
@@ -24,10 +32,43 @@ class AllBooksViewController: UIViewController {
     }
     
     func setupLayout() {
-        self.view.addSubview(sampleLabel)
+        self.view.backgroundColor = .white
+    
+        self.view.addSubview(allBooksCollectionView)
         NSLayoutConstraint.activate([
-            sampleLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
-            sampleLabel.centerYAnchor.constraint(equalTo: self.view.centerYAnchor)
+            allBooksCollectionView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
+            allBooksCollectionView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor),
+            allBooksCollectionView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor),
+            allBooksCollectionView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor),
         ])
+    }
+}
+
+extension AllBooksViewController: UICollectionViewDelegate {
+    
+}
+
+extension AllBooksViewController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 6
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BooksCollectionViewCell.cellId, for: indexPath) as? BooksCollectionViewCell else {
+            return UICollectionViewCell()
+        }
+        
+        cell.backgroundColor = .green
+        
+        return cell
+    }
+}
+
+extension AllBooksViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let width = (UIScreen.main.bounds.width - 30 * 3) / 3
+        let height = (UIScreen.main.bounds.height) / 5
+        
+        return CGSize(width: width, height: height)
     }
 }

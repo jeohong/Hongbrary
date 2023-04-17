@@ -15,6 +15,7 @@
 		CF98923E29E940EF008F876A /* AllBooksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF98923D29E940EF008F876A /* AllBooksViewController.swift */; };
 		CF98924029E94212008F876A /* ReadBooksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF98923F29E94212008F876A /* ReadBooksViewController.swift */; };
 		CF98924229E94232008F876A /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF98924129E94232008F876A /* SettingViewController.swift */; };
+		CFF8074829ECC2E400402CCD /* BooksCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFF8074729ECC2E400402CCD /* BooksCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		CF98923D29E940EF008F876A /* AllBooksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllBooksViewController.swift; sourceTree = "<group>"; };
 		CF98923F29E94212008F876A /* ReadBooksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadBooksViewController.swift; sourceTree = "<group>"; };
 		CF98924129E94232008F876A /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
+		CFF8074729ECC2E400402CCD /* BooksCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooksCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,6 +95,7 @@
 			isa = PBXGroup;
 			children = (
 				CF98923D29E940EF008F876A /* AllBooksViewController.swift */,
+				CFF8074729ECC2E400402CCD /* BooksCollectionViewCell.swift */,
 			);
 			path = AllBooks;
 			sourceTree = "<group>";
@@ -188,6 +191,7 @@
 				CF98922529E93318008F876A /* AppDelegate.swift in Sources */,
 				CF98922729E93318008F876A /* SceneDelegate.swift in Sources */,
 				CF98924029E94212008F876A /* ReadBooksViewController.swift in Sources */,
+				CFF8074829ECC2E400402CCD /* BooksCollectionViewCell.swift in Sources */,
 				CF98924229E94232008F876A /* SettingViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
