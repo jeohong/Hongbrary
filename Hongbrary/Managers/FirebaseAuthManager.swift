@@ -13,9 +13,13 @@ class FirebaseAuthManager {
     static let shared = FirebaseAuthManager()
     
     var currentUid = Auth.auth().currentUser?.uid
+    var userEmail = Auth.auth().currentUser?.email
     
     func signIn(email: String, password: String, completion: @escaping (NSError?) -> ()) {
         Auth.auth().signIn(withEmail: email, password: password) { authResult, error in
+            self.currentUid = Auth.auth().currentUser?.uid
+            self.userEmail = Auth.auth().currentUser?.email
+            
             completion(error as NSError?)
         }
     }

@@ -38,6 +38,7 @@ class SettingViewController: UIViewController {
         
         setupLayout()
         configureButtonsAction()
+        setupUserData()
     }
     
     func setupLayout() {
@@ -71,5 +72,11 @@ class SettingViewController: UIViewController {
             // TODO: 유료 구입 항목 복원 로직
             print("유료 항목 복원 버튼 클릭")
         }), for: .touchUpInside)
+    }
+    
+    func setupUserData() {
+        guard let email = firebaseManager.userEmail else { print("hellosssss");return }
+        print("hello")
+        self.loginInformationView.eMailLabel.text = email
     }
 }
