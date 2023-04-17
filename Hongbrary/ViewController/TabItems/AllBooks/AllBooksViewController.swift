@@ -33,6 +33,7 @@ class AllBooksViewController: UIViewController {
     
     func setupLayout() {
         self.view.backgroundColor = .white
+        self.title = "모든 책"
     
         self.view.addSubview(allBooksCollectionView)
         NSLayoutConstraint.activate([
