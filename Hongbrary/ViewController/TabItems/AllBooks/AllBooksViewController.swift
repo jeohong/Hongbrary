@@ -49,6 +49,8 @@ class AllBooksViewController: UIViewController {
 
 extension AllBooksViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        userDefault.updateItem(pdfList.itemList[indexPath.row])
+        
         self.tabBarController?.selectedIndex = 1
     }
 }
