@@ -193,7 +193,7 @@ class LoginViewController: UIViewController {
         
         self.view.addSubview(loginButton)
         NSLayoutConstraint.activate([
-            loginButton.centerYAnchor.constraint(equalTo: self.view.centerYAnchor, constant: 20),
+            loginButton.topAnchor.constraint(equalTo: self.passwordTextField.bottomAnchor, constant: 30),
             loginButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 10),
             loginButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -10),
             loginButton.heightAnchor.constraint(equalToConstant: 40)
