@@ -10,6 +10,30 @@ import UIKit
 class BooksCollectionViewCell: UICollectionViewCell {
     static let cellId = "BooksCollectionViewCell"
     
+    var isDownload = false
+    
+    let opacityView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .black
+        view.layer.opacity = 0.6
+        view.isHidden = true
+        view.translatesAutoresizingMaskIntoConstraints = false
+        
+        return view
+    }()
+    
+    let progressBar: UIProgressView = {
+       let progress = UIProgressView()
+        progress.trackTintColor = .black
+        progress.progressTintColor = .white
+        progress.progressViewStyle = .bar
+        progress.progress = 0
+        progress.translatesAutoresizingMaskIntoConstraints = false
+        progress.isHidden = true
+        
+        return progress
+    }()
+    
     let pdfImage: UIImageView = {
         let image = UIImageView()
         image.contentMode = .scaleToFill
@@ -52,6 +76,24 @@ class BooksCollectionViewCell: UICollectionViewCell {
             titleLabel.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor),
             titleLabel.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor),
             titleLabel.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor)
+        ])
+        
+        self.contentView.addSubview(opacityView)
+        NSLayoutConstraint.activate([
+            opacityView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor),
+            opacityView.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor),
+            opacityView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor),
+            opacityView.topAnchor.constraint(equalTo: self.contentView.topAnchor)
+        ])
+        
+        self.contentView.addSubview(progressBar)
+        NSLayoutConstraint.activate([
+            progressBar.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 20),
+            progressBar.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -20),
+            progressBar.centerYAnchor.constraint(equalTo: self.contentView.centerYAnchor),
+            //            progressBar.widthAnchor.constraint(equalTo: self.contentView.widthAnchor),
+            //                        progressBar.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor),
+//                                    progressBar.heightAnchor.constraint(equalToConstant: 30)
         ])
     }
     
