@@ -9,6 +9,7 @@ import UIKit
 
 class AllBooksViewController: UIViewController {
     let pdfList = PdfList()
+    let userDefault = UserDefaultManager.shared
     
     private lazy var allBooksCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -29,7 +30,6 @@ class AllBooksViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setupLayout()
     }
     
@@ -48,7 +48,9 @@ class AllBooksViewController: UIViewController {
 }
 
 extension AllBooksViewController: UICollectionViewDelegate {
-    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        self.tabBarController?.selectedIndex = 1
+    }
 }
 
 extension AllBooksViewController: UICollectionViewDataSource {
