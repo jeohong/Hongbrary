@@ -28,6 +28,25 @@ class PdfList {
             return ""
         }
     }
+    
+    func originalFileName(_ titleString: String) -> String {
+        switch titleString {
+        case "aws_reInvent":
+            return "[AWS reInvent 2022] 클라우드의 혁신 그리고 진화_vf.pdf"
+        case "kb_economy":
+            return "수소경제의 최근 동향과 전망.pdf"
+        case "kb_real_estate":
+            return "2022 KB 부동산 보고서.pdf"
+        case "swift_basic":
+            return "꼼꼼한 재은씨의 스위프트 기본편.pdf"
+        case "swift_practice":
+            return "꼼꼼한 재은씨의 스위프트 실전편.pdf"
+        case "swift_programing":
+            return "스위프트 프로그래밍 3판.pdf"
+        default:
+            return ""
+        }
+    }
 }
 
 enum Title: String {

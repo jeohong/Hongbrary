@@ -706,10 +706,12 @@ PODS:
   - nanopb/decode (2.30909.0)
   - nanopb/encode (2.30909.0)
   - PromisesObjC (2.2.0)
+  - ZIPFoundation (0.9.16)
 
 DEPENDENCIES:
   - FirebaseAuth
   - FirebaseFirestore
+  - ZIPFoundation
 
 SPEC REPOS:
   trunk:
@@ -727,6 +729,7 @@ SPEC REPOS:
     - Libuv-gRPC
     - nanopb
     - PromisesObjC
+    - ZIPFoundation
 
 SPEC CHECKSUMS:
   abseil: ebe5b5529fb05d93a8bdb7951607be08b7fa71bc
@@ -743,7 +746,8 @@ SPEC CHECKSUMS:
   Libuv-gRPC: 55e51798e14ef436ad9bc45d12d43b77b49df378
   nanopb: b552cce312b6c8484180ef47159bc0f65a1f0431
   PromisesObjC: 09985d6d70fbe7878040aa746d78236e6946d2ef
+  ZIPFoundation: d170fa8e270b2a32bef9dcdcabff5b8f1a5deced
 
-PODFILE CHECKSUM: ba853ad8577992581913f103f3c36da2390cbff3
+PODFILE CHECKSUM: 3cd8fe713d70a7d2321b2bfe5af65e131b1b59e6
 
 COCOAPODS: 1.12.0

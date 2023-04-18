@@ -8,4 +8,5 @@ target 'Hongbrary' do
   # Pods for Hongbrary
   pod 'FirebaseAuth'
   pod 'FirebaseFirestore'
+  pod 'ZIPFoundation'
 end
