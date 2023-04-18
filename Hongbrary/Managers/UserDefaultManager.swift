@@ -15,8 +15,11 @@ class UserDefaultManager {
     lazy var storedArray = self.getUserDefault()
     
     func updateItem(_ item: String) {
-        storedArray.append(item)
-        userDefaults.set(storedArray, forKey: forKey)
+        let indexOfItem = storedArray.firstIndex(of: item)
+        if indexOfItem == nil {
+            storedArray.append(item)
+            userDefaults.set(storedArray, forKey: forKey)
+        }
     }
     
     func deleteItem(_ item: String) {
