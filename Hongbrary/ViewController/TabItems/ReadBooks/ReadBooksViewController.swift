@@ -34,7 +34,7 @@ class ReadBooksViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         setupLayout()
         setupLongGestureRecognizerOnCollection()
     }
@@ -61,6 +61,7 @@ class ReadBooksViewController: UIViewController {
     func collectionViewReload() {
         items = userDefault.getList(forKey: ForKeys.myBooks.rawValue)
         downloadList = userDefault.getList(forKey: ForKeys.downloadBooks.rawValue)
+        
         self.myBooksCollectionView.reloadData()
     }
 }
@@ -69,7 +70,6 @@ class ReadBooksViewController: UIViewController {
 extension ReadBooksViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         // TODO: 클릭시 PDF 다운로드 or 다운로드 된 상태면 PDF 열기
-        // 다운로드 테스트
         guard let url = URL(string: "http://chk.newstong.co.kr/\(items[indexPath.row]).zip") else { return }
         
         let urlSession = URLSession(configuration: .default, delegate: self, delegateQueue: OperationQueue())
@@ -88,6 +88,7 @@ extension ReadBooksViewController: UICollectionViewDataSource {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BooksCollectionViewCell.cellId, for: indexPath) as? BooksCollectionViewCell else {
             return UICollectionViewCell()
         }
+        
         cell.pdfImage.image = UIImage(named: items[indexPath.row])
         cell.titleLabel.text = pdfList.titleMap(items[indexPath.row])
         
@@ -126,6 +127,7 @@ extension ReadBooksViewController: UIGestureRecognizerDelegate {
             let removeAction = UIAlertAction(title: "삭제", style: .destructive) { [weak self] _ in
                 guard let self = self else { return }
                 self.userDefault.deleteItem(self.items[indexPath.row], forKey: ForKeys.myBooks.rawValue)
+                self.userDefault.deleteItem(self.items[indexPath.row], forKey: ForKeys.downloadBooks.rawValue)
                 self.collectionViewReload()
             }
             let cancelAction = UIAlertAction(title: "취소", style: .cancel)
@@ -159,6 +161,16 @@ extension ReadBooksViewController: URLSessionDownloadDelegate {
             try? FileManager.default.removeItem(at: tempPath)
         } catch let error {
             print("Copy Error: \(error.localizedDescription)")
+        }
+        
+        if let row = Int(downloadTask.taskDescription ?? "") {
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self, let cell = self.myBooksCollectionView.cellForItem(at: IndexPath(row: row, section: 0)) as? BooksCollectionViewCell else { return }
+                self.userDefault.updateItem(self.items[IndexPath(row: row, section: 0)[1]], forKey: ForKeys.downloadBooks.rawValue)
+                cell.progressBar.isHidden = true
+                cell.opacityView.isHidden = true
+                self.collectionViewReload()
+            }
         }
     }
     
