@@ -88,16 +88,14 @@ extension ReadBooksViewController: UICollectionViewDelegate {
         
         if isDownloadingList.contains(items[indexPath.row]) {
             // Download 중일때 취소 로직
-            let index = self.isDownloadingList.firstIndex(of: self.items[indexPath.row])
-            self.isDownloadingList.remove(at: index!)
-            collectionView.reloadData()
             
         } else {
-            
-            // 다운로드 중인지, 다운로드 된 상태인지 판단하여 각자 다른 액션
             if downloadList.contains(items[indexPath.row]) {
+                // 다운로드 목록에 있다면 PDF 뷰어 오픈
                 openPdfViewer(indexPath.row)
+                
             } else {
+                // 다운로드 목록에 없다면 다운로드 시작
                 self.isDownloadingList.append(items[indexPath.row])
                 collectionView.reloadData()
                 
@@ -237,5 +235,16 @@ extension ReadBooksViewController: URLSessionDownloadDelegate {
 extension ReadBooksViewController: UIDocumentInteractionControllerDelegate {
     func documentInteractionControllerViewControllerForPreview(_ controller: UIDocumentInteractionController) -> UIViewController {
         return self
+    }
+    
+    func documentInteractionControllerDidEndPreview(_ controller: UIDocumentInteractionController) {
+        let documentsPath = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask)[0]
+        let tempPath = documentsPath.appendingPathComponent("Download Books/(A Document Being Saved By Hongbrary)")
+        
+        do {
+            try FileManager.default.removeItem(at: tempPath)
+        } catch let error {
+            print(error.localizedDescription)
+        }
     }
 }
