@@ -58,7 +58,7 @@ class ReadBooksViewController: UIViewController {
     }
     
     func collectionViewReload() {
-        items = userDefault.getUserDefault()
+        items = userDefault.getList(forKey: "myBooks")
         self.myBooksCollectionView.reloadData()
     }
 }
@@ -123,8 +123,7 @@ extension ReadBooksViewController: UIGestureRecognizerDelegate {
             let alert = UIAlertController(title: "책 삭제", message: "구독중인 책 목록에서 삭제하시겠습니까?", preferredStyle: .alert)
             let removeAction = UIAlertAction(title: "삭제", style: .destructive) { [weak self] _ in
                 guard let self = self else { return }
-                self.userDefault.deleteItem(self.items[indexPath.row])
-                
+                self.userDefault.deleteItem(self.items[indexPath.row], forKey: "myBooks")
                 self.collectionViewReload()
             }
             let cancelAction = UIAlertAction(title: "취소", style: .cancel)

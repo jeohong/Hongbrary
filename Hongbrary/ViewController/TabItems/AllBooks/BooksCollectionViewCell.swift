@@ -10,7 +10,7 @@ import UIKit
 class BooksCollectionViewCell: UICollectionViewCell {
     static let cellId = "BooksCollectionViewCell"
     
-    var isDownload = false
+    var isDownloading = false
     
     let opacityView: UIView = {
         let view = UIView()
