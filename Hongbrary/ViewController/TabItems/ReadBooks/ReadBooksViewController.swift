@@ -88,16 +88,21 @@ extension ReadBooksViewController: UICollectionViewDelegate {
         
         if isDownloadingList.contains(items[indexPath.row]) {
             // Download 중일때 취소 로직
-        }
-        
-        // 다운로드 중인지, 다운로드 된 상태인지 판단하여 각자 다른 액션
-        if downloadList.contains(items[indexPath.row]) {
-            openPdfViewer(indexPath.row)
-        } else {
-            self.isDownloadingList.append(items[indexPath.row])
+            let index = self.isDownloadingList.firstIndex(of: self.items[indexPath.row])
+            self.isDownloadingList.remove(at: index!)
             collectionView.reloadData()
-
-            downloadTask.resume()
+            
+        } else {
+            
+            // 다운로드 중인지, 다운로드 된 상태인지 판단하여 각자 다른 액션
+            if downloadList.contains(items[indexPath.row]) {
+                openPdfViewer(indexPath.row)
+            } else {
+                self.isDownloadingList.append(items[indexPath.row])
+                collectionView.reloadData()
+                
+                downloadTask.resume()
+            }
         }
     }
 }
@@ -209,8 +214,8 @@ extension ReadBooksViewController: URLSessionDownloadDelegate {
             DispatchQueue.main.async { [weak self] in
                 guard let self = self else { return }
                 self.userDefault.updateItem(self.items[IndexPath(row: row, section: 0)[1]], forKey: ForKeys.downloadBooks.rawValue)
-                let index = self.isDownloadingList.firstIndex(of: self.items[IndexPath(row: row, section: 0)[1]])
-                self.isDownloadingList.remove(at: index!)
+                guard let index = self.isDownloadingList.firstIndex(of: self.items[IndexPath(row: row, section: 0)[1]]) else { return }
+                self.isDownloadingList.remove(at: index)
                 
                 self.collectionViewReload()
             }
