@@ -16,6 +16,11 @@ class ReadBooksViewController: UIViewController {
     var downloadList: [String] = []
     var isDownloadingList: [String] = []
     
+    lazy var session: URLSession = { [weak self] in
+       return URLSession(configuration: .default, delegate: self, delegateQueue: OperationQueue())
+    }()
+    var downloadTask: URLSessionDownloadTask?
+    
     private lazy var myBooksCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
@@ -82,13 +87,13 @@ extension ReadBooksViewController: UICollectionViewDelegate {
         // TODO: 클릭시 PDF 다운로드 and 다운로드 중이면 취소
         guard let url = URL(string: "http://chk.newstong.co.kr/\(items[indexPath.row]).zip") else { return }
         
-        let urlSession = URLSession(configuration: .default, delegate: self, delegateQueue: OperationQueue())
-        let downloadTask = urlSession.downloadTask(with: url)
-        downloadTask.taskDescription = "\(indexPath.row)"
-        
         if isDownloadingList.contains(items[indexPath.row]) {
             // Download 중일때 취소 로직
+            let index = self.isDownloadingList.firstIndex(of: self.items[indexPath.row])
+            self.isDownloadingList.remove(at: index!)
+            collectionView.reloadData()
             
+            downloadTask?.cancel()
         } else {
             if downloadList.contains(items[indexPath.row]) {
                 // 다운로드 목록에 있다면 PDF 뷰어 오픈
@@ -96,10 +101,13 @@ extension ReadBooksViewController: UICollectionViewDelegate {
                 
             } else {
                 // 다운로드 목록에 없다면 다운로드 시작
+                self.session = URLSession(configuration: .default, delegate: self, delegateQueue: OperationQueue())
                 self.isDownloadingList.append(items[indexPath.row])
                 collectionView.reloadData()
+                downloadTask = session.downloadTask(with: url)
+                downloadTask?.taskDescription = "\(indexPath.row)"
                 
-                downloadTask.resume()
+                downloadTask?.resume()
             }
         }
     }
@@ -227,6 +235,12 @@ extension ReadBooksViewController: URLSessionDownloadDelegate {
                 guard let self = self, let cell = self.myBooksCollectionView.cellForItem(at: IndexPath(row: row, section: 0)) as? BooksCollectionViewCell else { return }
                 cell.progressBar.setProgress(Float(totalBytesWritten) / Float(totalBytesExpectedToWrite), animated: true)
             }
+        }
+    }
+    
+    func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
+        if let _ = error {
+            session.invalidateAndCancel()
         }
     }
 }
