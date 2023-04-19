@@ -96,7 +96,7 @@ extension ReadBooksViewController: UICollectionViewDelegate {
         } else {
             self.isDownloadingList.append(items[indexPath.row])
             collectionView.reloadData()
-            
+
             downloadTask.resume()
         }
     }
@@ -163,6 +163,13 @@ extension ReadBooksViewController: UIGestureRecognizerDelegate {
                 guard let self = self else { return }
                 self.userDefault.deleteItem(self.items[indexPath.row], forKey: ForKeys.myBooks.rawValue)
                 self.userDefault.deleteItem(self.items[indexPath.row], forKey: ForKeys.downloadBooks.rawValue)
+                
+                let documentsPath = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask)[0]
+                let directoryPath = documentsPath.appendingPathComponent("Download Books/\(self.pdfList.originalFileName(self.items[indexPath.row]))")
+                do {
+                    try? FileManager.default.removeItem(at: directoryPath)
+                }
+                
                 self.collectionViewReload()
             }
             let cancelAction = UIAlertAction(title: "취소", style: .cancel)
