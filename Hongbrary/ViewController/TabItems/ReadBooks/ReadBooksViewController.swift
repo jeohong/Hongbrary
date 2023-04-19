@@ -14,6 +14,7 @@ class ReadBooksViewController: UIViewController {
     
     var items: [String] = []
     var downloadList: [String] = []
+    var isDownloadingList: [String] = []
     
     private lazy var myBooksCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -64,18 +65,40 @@ class ReadBooksViewController: UIViewController {
         
         self.myBooksCollectionView.reloadData()
     }
+    
+    func openPdfViewer(_ index: Int) {
+        let documentsPath = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask)[0]
+        let directoryPath = documentsPath.appendingPathComponent("Download Books/\(pdfList.originalFileName(items[index]))")
+        
+        let dc = UIDocumentInteractionController(url: directoryPath)
+        dc.delegate = self
+        dc.presentPreview(animated: true)
+    }
 }
 
 // MARK: CollectionView Delegate & DataSource
 extension ReadBooksViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        // TODO: 클릭시 PDF 다운로드 or 다운로드 된 상태면 PDF 열기
+        // TODO: 클릭시 PDF 다운로드 and 다운로드 중이면 취소
         guard let url = URL(string: "http://chk.newstong.co.kr/\(items[indexPath.row]).zip") else { return }
         
         let urlSession = URLSession(configuration: .default, delegate: self, delegateQueue: OperationQueue())
         let downloadTask = urlSession.downloadTask(with: url)
         downloadTask.taskDescription = "\(indexPath.row)"
-        downloadTask.resume()
+        
+        if isDownloadingList.contains(items[indexPath.row]) {
+            // Download 중일때 취소 로직
+        }
+        
+        // 다운로드 중인지, 다운로드 된 상태인지 판단하여 각자 다른 액션
+        if downloadList.contains(items[indexPath.row]) {
+            openPdfViewer(indexPath.row)
+        } else {
+            self.isDownloadingList.append(items[indexPath.row])
+            collectionView.reloadData()
+            
+            downloadTask.resume()
+        }
     }
 }
 
@@ -93,6 +116,12 @@ extension ReadBooksViewController: UICollectionViewDataSource {
             cell.opacityView.isHidden = false
         } else {
             cell.opacityView.isHidden = true
+        }
+        
+        if !isDownloadingList.contains(items[indexPath.row]) {
+            cell.progressBar.isHidden = true
+        } else {
+            cell.progressBar.isHidden = false
         }
         
         cell.pdfImage.image = UIImage(named: items[indexPath.row])
@@ -171,10 +200,11 @@ extension ReadBooksViewController: URLSessionDownloadDelegate {
         
         if let row = Int(downloadTask.taskDescription ?? "") {
             DispatchQueue.main.async { [weak self] in
-                guard let self = self, let cell = self.myBooksCollectionView.cellForItem(at: IndexPath(row: row, section: 0)) as? BooksCollectionViewCell else { return }
+                guard let self = self else { return }
                 self.userDefault.updateItem(self.items[IndexPath(row: row, section: 0)[1]], forKey: ForKeys.downloadBooks.rawValue)
-                cell.progressBar.isHidden = true
-                cell.opacityView.isHidden = true
+                let index = self.isDownloadingList.firstIndex(of: self.items[IndexPath(row: row, section: 0)[1]])
+                self.isDownloadingList.remove(at: index!)
+                
                 self.collectionViewReload()
             }
         }
@@ -188,5 +218,12 @@ extension ReadBooksViewController: URLSessionDownloadDelegate {
                 cell.progressBar.setProgress(Float(totalBytesWritten) / Float(totalBytesExpectedToWrite), animated: true)
             }
         }
+    }
+}
+
+// MARK: PDF Viewer Delegate
+extension ReadBooksViewController: UIDocumentInteractionControllerDelegate {
+    func documentInteractionControllerViewControllerForPreview(_ controller: UIDocumentInteractionController) -> UIViewController {
+        return self
     }
 }

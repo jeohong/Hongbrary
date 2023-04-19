@@ -10,8 +10,6 @@ import UIKit
 class BooksCollectionViewCell: UICollectionViewCell {
     static let cellId = "BooksCollectionViewCell"
     
-    var isDownloading = false
-    
     let opacityView: UIView = {
         let view = UIView()
         view.backgroundColor = .black
