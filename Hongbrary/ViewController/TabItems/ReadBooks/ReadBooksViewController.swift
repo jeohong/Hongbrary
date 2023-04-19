@@ -13,6 +13,7 @@ class ReadBooksViewController: UIViewController {
     let userDefault = UserDefaultManager.shared
     
     var items: [String] = []
+    var downloadList: [String] = []
     
     private lazy var myBooksCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -33,7 +34,7 @@ class ReadBooksViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         setupLayout()
         setupLongGestureRecognizerOnCollection()
     }
@@ -58,7 +59,8 @@ class ReadBooksViewController: UIViewController {
     }
     
     func collectionViewReload() {
-        items = userDefault.getList(forKey: "myBooks")
+        items = userDefault.getList(forKey: ForKeys.myBooks.rawValue)
+        downloadList = userDefault.getList(forKey: ForKeys.downloadBooks.rawValue)
         self.myBooksCollectionView.reloadData()
     }
 }
@@ -123,7 +125,7 @@ extension ReadBooksViewController: UIGestureRecognizerDelegate {
             let alert = UIAlertController(title: "책 삭제", message: "구독중인 책 목록에서 삭제하시겠습니까?", preferredStyle: .alert)
             let removeAction = UIAlertAction(title: "삭제", style: .destructive) { [weak self] _ in
                 guard let self = self else { return }
-                self.userDefault.deleteItem(self.items[indexPath.row], forKey: "myBooks")
+                self.userDefault.deleteItem(self.items[indexPath.row], forKey: ForKeys.myBooks.rawValue)
                 self.collectionViewReload()
             }
             let cancelAction = UIAlertAction(title: "취소", style: .cancel)

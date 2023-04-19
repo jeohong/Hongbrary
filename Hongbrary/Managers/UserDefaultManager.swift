@@ -36,3 +36,8 @@ class UserDefaultManager {
         return userDefaults.object(forKey: forKey) as? [String] ?? []
     }
 }
+
+enum ForKeys: String {
+    case myBooks
+    case downloadBooks
+}
