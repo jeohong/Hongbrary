@@ -89,6 +89,12 @@ extension ReadBooksViewController: UICollectionViewDataSource {
             return UICollectionViewCell()
         }
         
+        if !downloadList.contains(items[indexPath.row]) {
+            cell.opacityView.isHidden = false
+        } else {
+            cell.opacityView.isHidden = true
+        }
+        
         cell.pdfImage.image = UIImage(named: items[indexPath.row])
         cell.titleLabel.text = pdfList.titleMap(items[indexPath.row])
         
