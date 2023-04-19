@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import ZIPFoundation
 
 class ReadBooksViewController: UIViewController {
     let pdfList = PdfList()
@@ -60,7 +61,49 @@ class ReadBooksViewController: UIViewController {
         items = userDefault.getUserDefault()
         self.myBooksCollectionView.reloadData()
     }
+}
+
+// MARK: CollectionView Delegate & DataSource
+extension ReadBooksViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        // TODO: 클릭시 PDF 다운로드 or 다운로드 된 상태면 PDF 열기
+        // 다운로드 테스트
+        guard let url = URL(string: "http://chk.newstong.co.kr/\(items[indexPath.row]).zip") else { return }
+        
+        let urlSession = URLSession(configuration: .default, delegate: self, delegateQueue: OperationQueue())
+        let downloadTask = urlSession.downloadTask(with: url)
+        downloadTask.taskDescription = "\(indexPath.row)"
+        downloadTask.resume()
+    }
+}
+
+extension ReadBooksViewController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return items.count
+    }
     
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BooksCollectionViewCell.cellId, for: indexPath) as? BooksCollectionViewCell else {
+            return UICollectionViewCell()
+        }
+        cell.pdfImage.image = UIImage(named: items[indexPath.row])
+        cell.titleLabel.text = pdfList.titleMap(items[indexPath.row])
+        
+        return cell
+    }
+}
+
+extension ReadBooksViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let width = (UIScreen.main.bounds.width - 30 * 3) / 3
+        let height = (UIScreen.main.bounds.height) / 5
+        
+        return CGSize(width: width, height: height)
+    }
+}
+
+// MARK: LongPressGeusture Delegate
+extension ReadBooksViewController: UIGestureRecognizerDelegate {
     private func setupLongGestureRecognizerOnCollection() {
         let longPressedGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(gestureRecognizer:)))
         longPressedGesture.minimumPressDuration = 0.5
@@ -68,14 +111,14 @@ class ReadBooksViewController: UIViewController {
         longPressedGesture.delaysTouchesBegan = true
         myBooksCollectionView.addGestureRecognizer(longPressedGesture)
     }
-
+    
     @objc func handleLongPress(gestureRecognizer: UILongPressGestureRecognizer) {
         if (gestureRecognizer.state != .began) {
             return
         }
-
+        
         let p = gestureRecognizer.location(in: myBooksCollectionView)
-
+        
         if let indexPath = myBooksCollectionView.indexPathForItem(at: p) {
             let alert = UIAlertController(title: "책 삭제", message: "구독중인 책 목록에서 삭제하시겠습니까?", preferredStyle: .alert)
             let removeAction = UIAlertAction(title: "삭제", style: .destructive) { [weak self] _ in
@@ -93,38 +136,38 @@ class ReadBooksViewController: UIViewController {
     }
 }
 
-extension ReadBooksViewController: UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        // TODO: 클릭시 PDF 다운로드 or 다운로드 된 상태면 PDF 열기
-    }
-}
-
-extension ReadBooksViewController: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return items.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BooksCollectionViewCell.cellId, for: indexPath) as? BooksCollectionViewCell else {
-            return UICollectionViewCell()
+// MARK: URLSession Delegate
+extension ReadBooksViewController: URLSessionDownloadDelegate {
+    func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didFinishDownloadingTo location: URL) {
+        guard let url = downloadTask.originalRequest?.url else { return }
+        let documentsPath = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask)[0]
+        let directoryPath = documentsPath.appendingPathComponent("Download Books")
+        let tempPath = directoryPath.appendingPathComponent("__MACOSX")
+        do {
+            try FileManager.default.createDirectory(atPath: directoryPath.path, withIntermediateDirectories: false, attributes: nil)
+        } catch let e as NSError {
+            print(e.localizedDescription)
         }
-
-        cell.pdfImage.image = UIImage(named: items[indexPath.row])
-        cell.titleLabel.text = pdfList.titleMap(items[indexPath.row])
         
-        return cell
+        let destinationURL = directoryPath.appendingPathComponent(url.lastPathComponent)
+        try? FileManager.default.removeItem(at: destinationURL)
+        do {
+            try FileManager.default.copyItem(at: location, to: destinationURL)
+            try FileManager.default.unzipItem(at: destinationURL, to: directoryPath, preferredEncoding: .utf8)
+            try? FileManager.default.removeItem(at: destinationURL)
+            try? FileManager.default.removeItem(at: tempPath)
+        } catch let error {
+            print("Copy Error: \(error.localizedDescription)")
+        }
     }
-}
-
-extension ReadBooksViewController: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = (UIScreen.main.bounds.width - 30 * 3) / 3
-        let height = (UIScreen.main.bounds.height) / 5
-        
-        return CGSize(width: width, height: height)
-    }
-}
-
-extension ReadBooksViewController: UIGestureRecognizerDelegate {
     
+    func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didWriteData bytesWritten: Int64, totalBytesWritten: Int64, totalBytesExpectedToWrite: Int64) {
+        // TODO: CollectionView와 연결하여 progress Bar 업데이트
+        if let row = Int(downloadTask.taskDescription ?? "") {
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self, let cell = self.myBooksCollectionView.cellForItem(at: IndexPath(row: row, section: 0)) as? BooksCollectionViewCell else { return }
+                cell.progressBar.setProgress(Float(totalBytesWritten) / Float(totalBytesExpectedToWrite), animated: true)
+            }
+        }
+    }
 }
