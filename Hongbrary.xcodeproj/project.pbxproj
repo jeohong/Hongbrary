@@ -16,6 +16,7 @@
 		CF98924029E94212008F876A /* ReadBooksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF98923F29E94212008F876A /* ReadBooksViewController.swift */; };
 		CF98924229E94232008F876A /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF98924129E94232008F876A /* SettingViewController.swift */; };
 		CFB3F02A29F0CDED003EA373 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CFB3F02929F0CDED003EA373 /* StoreKit.framework */; };
+		CFB3F02C29F0CE85003EA373 /* IAPManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFB3F02B29F0CE85003EA373 /* IAPManager.swift */; };
 		CFC5911429ECDFB2005025C1 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFC5911329ECDFB2005025C1 /* LoginViewController.swift */; };
 		CFC5911729ECE638005025C1 /* UITextField+.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFC5911629ECE638005025C1 /* UITextField+.swift */; };
 		CFC5911A29ECFED7005025C1 /* RegExOfTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFC5911929ECFED7005025C1 /* RegExOfTextField.swift */; };
@@ -44,6 +45,7 @@
 		CF98923F29E94212008F876A /* ReadBooksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadBooksViewController.swift; sourceTree = "<group>"; };
 		CF98924129E94232008F876A /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		CFB3F02929F0CDED003EA373 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		CFB3F02B29F0CE85003EA373 /* IAPManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPManager.swift; sourceTree = "<group>"; };
 		CFC5911329ECDFB2005025C1 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		CFC5911629ECE638005025C1 /* UITextField+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+.swift"; sourceTree = "<group>"; };
 		CFC5911929ECFED7005025C1 /* RegExOfTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegExOfTextField.swift; sourceTree = "<group>"; };
@@ -194,6 +196,7 @@
 			children = (
 				CFC5911E29ED0D3C005025C1 /* FirebaseAuthManager.swift */,
 				CFE87E9F29EE5C1F0055FB50 /* UserDefaultManager.swift */,
+				CFB3F02B29F0CE85003EA373 /* IAPManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -313,6 +316,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CFB3F02C29F0CE85003EA373 /* IAPManager.swift in Sources */,
 				CFC5911429ECDFB2005025C1 /* LoginViewController.swift in Sources */,
 				CFC5912329ED3749005025C1 /* PdfList.swift in Sources */,
 				CFE87EA029EE5C1F0055FB50 /* UserDefaultManager.swift in Sources */,
