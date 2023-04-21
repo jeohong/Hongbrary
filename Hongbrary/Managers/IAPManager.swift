@@ -109,9 +109,6 @@ extension IAPManager: SKPaymentTransactionObserver {
                 print("restored Transaction")
                 self.deliverPurchaseNotificationFor(id: $0.original?.payment.productIdentifier)
                 SKPaymentQueue.default().finishTransaction($0)
-                
-                // UserDefault 값 조회
-                print(UserDefaults.standard.bool(forKey: $0.original?.payment.productIdentifier ?? ""))
             case .deferred:
                 print("deferred")
             case .purchasing:
