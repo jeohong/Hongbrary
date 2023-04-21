@@ -54,7 +54,7 @@ class AllBooksViewController: UIViewController {
         super.viewDidLoad()
         setupLayout()
         
-        getProductIdentifier()
+        getProduct()
         
         NotificationCenter.default.addObserver(
             self,
@@ -97,7 +97,7 @@ class AllBooksViewController: UIViewController {
         ])
     }
     
-    func getProductIdentifier() {
+    func getProduct() {
         MyProducts.iapService.getProducts { success, products in
             if success, let products = products {
                 self.products = products
@@ -106,7 +106,7 @@ class AllBooksViewController: UIViewController {
     }
     
     func buyTheBook() {
-        let alert = UIAlertController(title: "유료 도서 구매", message: "해당 도서는 유료 도서입니다.\n1100원에 구입하시겠습니까?\n이미 구입한 내역이 있으면 추가결제가 되지 않습니다.", preferredStyle: .alert)
+        let alert = UIAlertController(title: "유료 도서 구매", message: "\(self.products[0].price)원에 구입하시겠습니까?\n구입이력이 있는경우 추가결제가 되지 않습니다.", preferredStyle: .alert)
         let buyAction = UIAlertAction(title: "구입", style: .destructive) { [weak self] _ in
             guard let self = self else { return }
             self.progressBar.isHidden = false
@@ -130,13 +130,18 @@ class AllBooksViewController: UIViewController {
         self.progressBar.isHidden = true
         self.backGround.isHidden = true
         self.allBooksCollectionView.reloadData()
+        
+        let index = self.pdfList.itemList.firstIndex(of: "swift_practice")
+        if let index = index {
+            subscriptBook(index)
+        }
     }
 }
 
 extension AllBooksViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if pdfList.itemList[indexPath.row] == "swift_practice" {
-            if userDefault.getPurchaseHistory(products[0].productIdentifier) {
+            if userDefault.getPurchaseHistory(MyProducts.productID) {
                 subscriptBook(indexPath.row)
             } else {
                 buyTheBook()
@@ -163,7 +168,7 @@ extension AllBooksViewController: UICollectionViewDataSource {
         if pdfList.itemList[indexPath.row] == "swift_practice" {
             DispatchQueue.main.async { [weak self] in
                 guard let self = self else { return }
-                if self.userDefault.getPurchaseHistory(self.products.first?.productIdentifier ?? "") {
+                if self.userDefault.getPurchaseHistory(MyProducts.productID) {
                     cell.priceLabel.isHidden = true
                     cell.opacityView.isHidden = true
                 } else {
