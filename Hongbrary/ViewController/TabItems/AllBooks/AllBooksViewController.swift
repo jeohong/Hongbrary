@@ -63,6 +63,12 @@ class AllBooksViewController: UIViewController {
         self.allBooksCollectionView.reloadData()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        userDefault.setSelectTabIndex(0)
+    }
+    
     func setupNotification() {
         NotificationCenter.default.addObserver(
             self,

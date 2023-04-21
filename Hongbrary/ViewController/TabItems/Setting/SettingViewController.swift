@@ -34,6 +34,18 @@ class SettingViewController: UIViewController {
         return button
     }()
     
+    private lazy var testButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("(테스트버튼) 구매내역 삭제", for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitleColor(.black, for: .normal)
+        button.layer.cornerRadius = 15
+        button.layer.borderWidth = 1
+        button.layer.borderColor = UIColor.lightGray.cgColor
+        
+        return button
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -47,6 +59,12 @@ class SettingViewController: UIViewController {
             name: .iapServiceNotBuyUserNotification,
             object: nil
         )
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        userDefault.setSelectTabIndex(1)
     }
     
     func setupLayout() {
@@ -68,6 +86,14 @@ class SettingViewController: UIViewController {
             restoreButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -10),
             restoreButton.heightAnchor.constraint(equalToConstant: 50)
         ])
+        
+        self.view.addSubview(testButton)
+        NSLayoutConstraint.activate([
+            testButton.topAnchor.constraint(equalTo: self.restoreButton.bottomAnchor, constant: 10),
+            testButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 10),
+            testButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -10),
+            testButton.heightAnchor.constraint(equalToConstant: 50)
+        ])
     }
     
     func configureButtonsAction() {
@@ -83,6 +109,19 @@ class SettingViewController: UIViewController {
                 let message = "이미 구입목록에 있습니다."
                 self.failAlert(message)
             }
+        }), for: .touchUpInside)
+        
+        self.testButton.addAction(UIAction(handler: { _ in
+            self.userDefault.deleteItem("swift_practice", forKey: ForKeys.myBooks.rawValue)
+            self.userDefault.deleteItem("swift_practice", forKey: ForKeys.downloadBooks.rawValue)
+            UserDefaults.standard.set(false, forKey: MyProducts.productID)
+            
+            let alert = UIAlertController(title: "구매내역 삭제", message: "삭제완료", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "확인", style: .default)
+            
+            alert.addAction(okAction)
+            self.present(alert, animated: true)
+            
         }), for: .touchUpInside)
     }
     

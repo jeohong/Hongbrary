@@ -51,6 +51,12 @@ class ReadBooksViewController: UIViewController {
         self.collectionViewReload()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        userDefault.setSelectTabIndex(1)
+    }
+    
     func setupLayout() {
         self.view.backgroundColor = .white
         self.title = "구독중인 책 목록"

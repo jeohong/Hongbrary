@@ -9,7 +9,7 @@ import Foundation
 
 class UserDefaultManager {
     static let shared = UserDefaultManager()
-
+    
     let userDefaults = UserDefaults.standard
     
     func updateItem(_ item: String, forKey: String) {
@@ -39,7 +39,14 @@ class UserDefaultManager {
     func getPurchaseHistory(_ productId: String) -> Bool {
         return userDefaults.bool(forKey: productId)
     }
-
+    
+    func getSelectTabIndex() -> Int {
+        return userDefaults.integer(forKey: "lastTabIndex")
+    }
+    
+    func setSelectTabIndex(_ index: Int) {
+        userDefaults.set(index, forKey: "lastTabIndex")
+    }
 }
 
 enum ForKeys: String {

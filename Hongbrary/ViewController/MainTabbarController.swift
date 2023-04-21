@@ -8,6 +8,8 @@
 import UIKit
 
 class MainTabbarController: UITabBarController {
+    let userDefault = UserDefaultManager.shared
+    
     private lazy var allBooksViewController: UINavigationController = {
         let allBooksViewController = AllBooksViewController()
         
@@ -46,6 +48,8 @@ class MainTabbarController: UITabBarController {
         
         viewControllers = [allBooksViewController, readBooksViewController, settingViewController]
         configureTabBar()
+        
+        self.selectedIndex = userDefault.getSelectTabIndex()
     }
     
     func configureTabBar() {
