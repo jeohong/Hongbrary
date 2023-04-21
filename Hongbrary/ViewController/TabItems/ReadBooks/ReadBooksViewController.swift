@@ -229,6 +229,7 @@ extension ReadBooksViewController: URLSessionDownloadDelegate {
                 self.isDownloadingList.remove(at: index)
                 
                 self.collectionViewReload()
+                self.openPdfViewer(index)
             }
         }
     }
