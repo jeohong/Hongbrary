@@ -35,6 +35,11 @@ class UserDefaultManager {
     func getList(forKey: String) -> [String] {
         return userDefaults.object(forKey: forKey) as? [String] ?? []
     }
+    
+    func getPurchaseHistory(_ productId: String) -> Bool {
+        return userDefaults.bool(forKey: productId)
+    }
+
 }
 
 enum ForKeys: String {

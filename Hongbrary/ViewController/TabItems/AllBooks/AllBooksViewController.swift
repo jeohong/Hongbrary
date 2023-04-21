@@ -6,10 +6,12 @@
 //
 
 import UIKit
+import StoreKit
 
 class AllBooksViewController: UIViewController {
     let pdfList = PdfList()
     let userDefault = UserDefaultManager.shared
+    var products = [SKProduct]()
     
     private lazy var allBooksCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -24,19 +26,54 @@ class AllBooksViewController: UIViewController {
         collectionView.dataSource = self
         collectionView.register(BooksCollectionViewCell.self, forCellWithReuseIdentifier: BooksCollectionViewCell.cellId)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
-
+        
         return collectionView
     }()
-
+    
+    let progressBar: UIActivityIndicatorView = {
+       let progress = UIActivityIndicatorView()
+        progress.style = .whiteLarge
+        progress.translatesAutoresizingMaskIntoConstraints = false
+        progress.startAnimating()
+        progress.isHidden = true
+        
+        return progress
+    }()
+    
+    let backGround: UIView = {
+        let view = UIView()
+        view.isHidden = true
+        view.layer.opacity = 0.7
+        view.backgroundColor = .black
+        view.translatesAutoresizingMaskIntoConstraints = false
+        
+        return view
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupLayout()
+        
+        getProductIdentifier()
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(handlePurchaseNoti(_:)),
+            name: .iapServicePurchaseNotification,
+            object: nil
+        )
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.allBooksCollectionView.reloadData()
     }
     
     func setupLayout() {
         self.view.backgroundColor = .white
         self.title = "모든 책"
-    
+        
         self.view.addSubview(allBooksCollectionView)
         NSLayoutConstraint.activate([
             allBooksCollectionView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
@@ -44,14 +81,69 @@ class AllBooksViewController: UIViewController {
             allBooksCollectionView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor),
             allBooksCollectionView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor),
         ])
+        
+        self.view.addSubview(backGround)
+        NSLayoutConstraint.activate([
+            backGround.topAnchor.constraint(equalTo: self.view.topAnchor),
+            backGround.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
+            backGround.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            backGround.leadingAnchor.constraint(equalTo: self.view.leadingAnchor)
+        ])
+        
+        self.view.addSubview(progressBar)
+        NSLayoutConstraint.activate([
+            progressBar.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            progressBar.centerYAnchor.constraint(equalTo: self.view.centerYAnchor)
+        ])
+    }
+    
+    func getProductIdentifier() {
+        MyProducts.iapService.getProducts { success, products in
+            if success, let products = products {
+                self.products = products
+            }
+        }
+    }
+    
+    func buyTheBook() {
+        let alert = UIAlertController(title: "유료 도서 구매", message: "해당 도서는 유료 도서입니다.\n1100원에 구입하시겠습니까?\n이미 구입한 내역이 있으면 추가결제가 되지 않습니다.", preferredStyle: .alert)
+        let buyAction = UIAlertAction(title: "구입", style: .destructive) { [weak self] _ in
+            guard let self = self else { return }
+            self.progressBar.isHidden = false
+            self.backGround.isHidden = false
+            MyProducts.iapService.buyProduct(self.products[0])
+        }
+        let cancelAction = UIAlertAction(title: "취소", style: .cancel)
+        
+        alert.addAction(buyAction)
+        alert.addAction(cancelAction)
+        present(alert, animated: true)
+    }
+    
+    func subscriptBook(_ index: Int) {
+        userDefault.updateItem(pdfList.itemList[index], forKey: ForKeys.myBooks.rawValue)
+        self.tabBarController?.selectedIndex = 1
+    }
+    
+    @objc
+    private func handlePurchaseNoti(_ notification: Notification) {
+        self.progressBar.isHidden = true
+        self.backGround.isHidden = true
+        self.allBooksCollectionView.reloadData()
     }
 }
 
 extension AllBooksViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        userDefault.updateItem(pdfList.itemList[indexPath.row], forKey: ForKeys.myBooks.rawValue)
-        
-        self.tabBarController?.selectedIndex = 1
+        if pdfList.itemList[indexPath.row] == "swift_practice" {
+            if userDefault.getPurchaseHistory(products[0].productIdentifier) {
+                subscriptBook(indexPath.row)
+            } else {
+                buyTheBook()
+            }
+        } else {
+            subscriptBook(indexPath.row)
+        }
     }
 }
 
@@ -67,6 +159,19 @@ extension AllBooksViewController: UICollectionViewDataSource {
         
         cell.pdfImage.image = UIImage(named: pdfList.itemList[indexPath.row])
         cell.titleLabel.text = pdfList.titleMap(pdfList.itemList[indexPath.row])
+        
+        if pdfList.itemList[indexPath.row] == "swift_practice" {
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self else { return }
+                if self.userDefault.getPurchaseHistory(self.products.first?.productIdentifier ?? "") {
+                    cell.priceLabel.isHidden = true
+                    cell.opacityView.isHidden = true
+                } else {
+                    cell.priceLabel.isHidden = false
+                    cell.opacityView.isHidden = false
+                }
+            }
+        }
         
         return cell
     }
