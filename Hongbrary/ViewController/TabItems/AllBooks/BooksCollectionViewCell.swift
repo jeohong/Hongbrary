@@ -50,6 +50,16 @@ class BooksCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
+    let priceLabel: UILabel = {
+       let label = UILabel()
+        label.text = "유료 도서"
+        label.textColor = .white
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.isHidden = true
+        
+        return label
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -89,9 +99,12 @@ class BooksCollectionViewCell: UICollectionViewCell {
             progressBar.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 20),
             progressBar.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -20),
             progressBar.centerYAnchor.constraint(equalTo: self.contentView.centerYAnchor),
-            //            progressBar.widthAnchor.constraint(equalTo: self.contentView.widthAnchor),
-            //                        progressBar.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor),
-//                                    progressBar.heightAnchor.constraint(equalToConstant: 30)
+        ])
+        
+        self.contentView.addSubview(priceLabel)
+        NSLayoutConstraint.activate([
+            priceLabel.centerXAnchor.constraint(equalTo: self.contentView.centerXAnchor),
+            priceLabel.centerYAnchor.constraint(equalTo: self.contentView.centerYAnchor)
         ])
     }
     
