@@ -70,8 +70,6 @@ class SettingViewController: UIViewController {
         }), for: .touchUpInside)
         
         self.restoreButton.addAction(UIAction(handler: { _ in
-            // TODO: 유료 구입 항목 복원 로직
-            print("유료 항목 복원 버튼 클릭")
             if !self.userDefault.getPurchaseHistory(MyProducts.productID) {
                 MyProducts.iapService.restorePurchases()
             } else {

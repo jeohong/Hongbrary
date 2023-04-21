@@ -84,7 +84,6 @@ class ReadBooksViewController: UIViewController {
 // MARK: CollectionView Delegate & DataSource
 extension ReadBooksViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        // TODO: 클릭시 PDF 다운로드 and 다운로드 중이면 취소
         guard let url = URL(string: "http://chk.newstong.co.kr/\(items[indexPath.row]).zip") else { return }
         
         if isDownloadingList.contains(items[indexPath.row]) {
@@ -229,7 +228,6 @@ extension ReadBooksViewController: URLSessionDownloadDelegate {
     }
     
     func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didWriteData bytesWritten: Int64, totalBytesWritten: Int64, totalBytesExpectedToWrite: Int64) {
-        // TODO: CollectionView와 연결하여 progress Bar 업데이트
         if let row = Int(downloadTask.taskDescription ?? "") {
             DispatchQueue.main.async { [weak self] in
                 guard let self = self, let cell = self.myBooksCollectionView.cellForItem(at: IndexPath(row: row, section: 0)) as? BooksCollectionViewCell else { return }
