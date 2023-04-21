@@ -16,8 +16,11 @@ class ReadBooksViewController: UIViewController {
     var downloadList: [String] = []
     var isDownloadingList: [String] = []
     
-    lazy var session: URLSession = { [weak self] in
-       return URLSession(configuration: .default, delegate: self, delegateQueue: OperationQueue())
+    private lazy var session: URLSession = {
+        let config = URLSessionConfiguration.background(withIdentifier: "DownloadSession")
+        config.isDiscretionary = true
+        config.sessionSendsLaunchEvents = true
+        return URLSession(configuration: config, delegate: self, delegateQueue: nil)
     }()
     var downloadTask: URLSessionDownloadTask?
     
@@ -106,11 +109,18 @@ extension ReadBooksViewController: UICollectionViewDelegate {
                 
             } else {
                 // 다운로드 목록에 없다면 다운로드 시작
-                self.session = URLSession(configuration: .default, delegate: self, delegateQueue: OperationQueue())
+                let config = URLSessionConfiguration.background(withIdentifier: "DownloadSession")
+                config.isDiscretionary = true
+                config.sessionSendsLaunchEvents = true
+                self.session = URLSession(configuration: config, delegate: self, delegateQueue: nil)
+                
                 self.isDownloadingList.append(items[indexPath.row])
                 collectionView.reloadData()
+                
                 downloadTask = session.downloadTask(with: url)
                 downloadTask?.taskDescription = "\(indexPath.row)"
+                downloadTask?.countOfBytesClientExpectsToSend = 200
+                downloadTask?.countOfBytesClientExpectsToReceive = 500 * 1024
                 
                 downloadTask?.resume()
             }
@@ -229,7 +239,9 @@ extension ReadBooksViewController: URLSessionDownloadDelegate {
                 self.isDownloadingList.remove(at: index)
                 
                 self.collectionViewReload()
-                self.openPdfViewer(IndexPath(row: row, section: 0)[1])
+                if (UIApplication.shared.applicationState == .active) {
+                    self.openPdfViewer(IndexPath(row: row, section: 0)[1])
+                }
             }
         }
     }
