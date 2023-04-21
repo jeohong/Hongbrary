@@ -103,6 +103,7 @@ extension IAPManager: SKPaymentTransactionObserver {
                    transactionError.code != SKError.paymentCancelled.rawValue {
                     print("Transaction erorr: \(description)")
                 }
+                self.deliverFailNotificationFor()
                 SKPaymentQueue.default().finishTransaction($0)
             case .restored:
                 // 이미 구매한 목록
@@ -120,6 +121,12 @@ extension IAPManager: SKPaymentTransactionObserver {
         }
     }
     
+    func paymentQueueRestoreCompletedTransactionsFinished(_ queue: SKPaymentQueue) {
+        if queue.transactions.isEmpty {
+            self.notBuyUserNotification()
+        }
+    }
+    
     private func deliverPurchaseNotificationFor(id: String?) {
         guard let id = id else { return }
         
@@ -130,18 +137,32 @@ extension IAPManager: SKPaymentTransactionObserver {
             object: id
         )
     }
+    
+    private func notBuyUserNotification() {
+        NotificationCenter.default.post(
+            name: .iapServiceNotBuyUserNotification, object: nil
+        )
+    }
+    
+    private func deliverFailNotificationFor() {
+        NotificationCenter.default.post(
+            name: .iapServiceFailUserNotification, object: nil
+        )
+    }
 }
 
 // MARK: In-App 관련 Enum
 enum MyProducts {
-  static let productID = "com.tomato.test.newstong.buybooks"
-  static let iapService: IAPManagerType = IAPManager(productIDs: Set<String>([productID]))
-  
-  static func getResourceProductName(_ id: String) -> String? {
-    id.components(separatedBy: ".").last
-  }
+    static let productID = "com.tomato.test.newstong.buybooks"
+    static let iapService: IAPManagerType = IAPManager(productIDs: Set<String>([productID]))
+    
+    static func getResourceProductName(_ id: String) -> String? {
+        id.components(separatedBy: ".").last
+    }
 }
 
 extension Notification.Name {
-  static let iapServicePurchaseNotification = Notification.Name("IAPServicePurchaseNotification")
+    static let iapServicePurchaseNotification = Notification.Name("IAPServicePurchaseNotification")
+    static let iapServiceNotBuyUserNotification = Notification.Name("IAPServiceNotBuyNotification")
+    static let iapServiceFailUserNotification = Notification.Name("IAPServiceFailNotification")
 }

@@ -40,6 +40,13 @@ class SettingViewController: UIViewController {
         setupLayout()
         configureButtonsAction()
         setupUserData()
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(handleNotbuyNoti(_:)),
+            name: .iapServiceNotBuyUserNotification,
+            object: nil
+        )
     }
     
     func setupLayout() {
@@ -73,7 +80,8 @@ class SettingViewController: UIViewController {
             if !self.userDefault.getPurchaseHistory(MyProducts.productID) {
                 MyProducts.iapService.restorePurchases()
             } else {
-                self.failAlert()
+                let message = "이미 구입목록에 있습니다."
+                self.failAlert(message)
             }
         }), for: .touchUpInside)
     }
@@ -83,11 +91,17 @@ class SettingViewController: UIViewController {
         self.loginInformationView.eMailLabel.text = email
     }
     
-    func failAlert() {
-        let alert = UIAlertController(title: "요청 실패", message: "이미 구입목록에 있습니다.", preferredStyle: .alert)
+    func failAlert(_ message: String) {
+        let alert = UIAlertController(title: "요청 실패", message: message, preferredStyle: .alert)
         let okAction = UIAlertAction(title: "확인", style: .default)
         
         alert.addAction(okAction)
         present(alert, animated: true)
+    }
+    
+    @objc
+    func handleNotbuyNoti(_ notification: Notification) {
+        let message = "구입 이력이 없습니다."
+        failAlert(message)
     }
 }

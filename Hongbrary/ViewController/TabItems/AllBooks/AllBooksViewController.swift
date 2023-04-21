@@ -53,21 +53,30 @@ class AllBooksViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupLayout()
-        
         getProduct()
-        
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(handlePurchaseNoti(_:)),
-            name: .iapServicePurchaseNotification,
-            object: nil
-        )
+        setupNotification()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         self.allBooksCollectionView.reloadData()
+    }
+    
+    func setupNotification() {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(handlePurchaseNoti(_:)),
+            name: .iapServicePurchaseNotification,
+            object: nil
+        )
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(handleFailNoti(_:)),
+            name: .iapServiceFailUserNotification,
+            object: nil
+        )
     }
     
     func setupLayout() {
@@ -135,6 +144,12 @@ class AllBooksViewController: UIViewController {
         if let index = index {
             subscriptBook(index)
         }
+    }
+    
+    @objc
+    private func handleFailNoti(_ notification: Notification) {
+        self.progressBar.isHidden = true
+        self.backGround.isHidden = true
     }
 }
 
